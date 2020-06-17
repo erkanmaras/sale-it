@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "sale-it-app"
+    }
+  },
+  "defaultProject": "sale-it-app",
+  "cli": {
+    "analytics": "2db264ce-c2f1-4871-b650-e7d79140c3f1"
+  }
 }
