@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp5.0</TargetFramework>
-    <RootNamespace>sale_it_api</RootNamespace>
+    <RootNamespace>SaleIt.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 using System;
 
-namespace sale_it_api
+namespace SaleIt.Api
 {
     public class WeatherForecast
     {
