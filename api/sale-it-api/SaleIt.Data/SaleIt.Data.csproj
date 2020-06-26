@@ -2,6 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-preview.5.20278.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-preview.5.20278.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0-preview.5.20278.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SaleIt.Domain\SaleIt.Domain.csproj" />
+    <ProjectReference Include="..\SaleIt.Infrastructure\SaleIt.Infrastructure.csproj" />
+  </ItemGroup>
 
 </Project>

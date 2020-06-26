@@ -3,9 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp5.0</TargetFramework>
     <RootNamespace>SaleIt.Api</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-preview.5.20278.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SaleIt.Data\SaleIt.Data.csproj" />
+    <ProjectReference Include="..\SaleIt.Domain\SaleIt.Domain.csproj" />
+    <ProjectReference Include="..\SaleIt.Infrastructure\SaleIt.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
