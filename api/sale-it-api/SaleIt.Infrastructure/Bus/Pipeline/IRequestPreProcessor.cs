@@ -1,4 +1,4 @@
-namespace SaleIt.Infrastructure.Bus.Pipeline
+namespace SaleIt.Bus.Pipeline
 {
     using System.Threading;
     using System.Threading.Tasks;

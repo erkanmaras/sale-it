@@ -1,4 +1,4 @@
-namespace SaleIt.Infrastructure.Bus.Internal
+namespace SaleIt.Bus.Internal
 {
     using System;
     using System.Collections.Generic;

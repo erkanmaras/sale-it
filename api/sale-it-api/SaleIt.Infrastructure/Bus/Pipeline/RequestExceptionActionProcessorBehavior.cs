@@ -1,6 +1,6 @@
-namespace SaleIt.Infrastructure.Bus.Pipeline
+namespace SaleIt.Bus.Pipeline
 {
-    using SaleIt.Infrastructure.Bus.Internal;
+    using SaleIt.Bus.Internal;
     using System;
     using System.Collections.Generic;
     using System.Linq;

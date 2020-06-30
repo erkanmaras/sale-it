@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SaleIt.Infrastructure.Bus
+namespace SaleIt.Bus
 {
     /// <summary>
     /// Factory method used to resolve all services. For multiple instances, it will resolve against <see cref="IEnumerable{T}" />

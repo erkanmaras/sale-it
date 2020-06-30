@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Arch.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Domain.Sale.Entities;
 using SaleIt.Domain.Sale.Repositories;
 
 namespace SaleIt.Data.Sale.Repositories
 {
-    public class SaleDocumentRepository : ISaleDocumentRepository
+    public class SaleDocumentRepository : EntityFrameworkRepository<SaleDocument> ,ISaleDocumentRepository
     {
-        public SaleDocumentRepository(SaleItDbContext dbContext)
+        public SaleDocumentRepository(DbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
         }
 
-        private readonly SaleItDbContext dbContext;
-
-        public async Task<SaleDocument> FindAsync(Guid saleId)
+        public async Task<SaleDocument?> FindAsync(Guid saleId)
         {
-            var sale = await dbContext.Sales.FindAsync(saleId);
+            var sale = await base.FindAsync(saleId);
             if (sale != null)
             {
                 await dbContext.Entry(sale)
@@ -27,22 +25,19 @@ namespace SaleIt.Data.Sale.Repositories
             return sale;
         }
 
-        public SaleDocument Add(SaleDocument saleDocument)
+        public SaleDocument? Add(SaleDocument? saleDocument)
         {
-            return dbContext.Sales.Add(saleDocument).Entity;
+            return base.Insert(saleDocument);
         }
 
-        public void Update(SaleDocument saleDocument)
+        public void Update(SaleDocument? saleDocument)
         {
-            dbContext.Entry(saleDocument).State = EntityState.Modified;
+            base.Update(saleDocument); 
         }
 
         public void Remove(Guid saleId)
         {
-            //find remove or attach remove?
-            var saleDocument = SaleDocument.CreateForDelete(saleId);
-            dbContext.Sales.Attach(saleDocument);
-            dbContext.Sales.Remove(saleDocument);
+            base.Delete(saleId); 
         }
     }
 }

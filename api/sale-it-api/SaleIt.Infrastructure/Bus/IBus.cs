@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SaleIt.Infrastructure.Bus
+namespace SaleIt.Bus
 {
     /// <summary>
     /// Defines a Bus to encapsulate request/response and publishing interaction patterns

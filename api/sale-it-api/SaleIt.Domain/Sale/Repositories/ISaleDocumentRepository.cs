@@ -7,11 +7,11 @@ namespace SaleIt.Domain.Sale.Repositories
 {
     public interface ISaleDocumentRepository : IRepository
     {
-        Task<SaleDocument> FindAsync(Guid saleId);
+        Task<SaleDocument?> FindAsync(Guid saleId);
 
-        SaleDocument Add(SaleDocument saleDocument);
+        SaleDocument? Add(SaleDocument saleDocument);
 
-        void Update(SaleDocument saleDocument);
+        void Update(SaleDocument? saleDocument);
 
         void Remove(Guid saleId);
     }

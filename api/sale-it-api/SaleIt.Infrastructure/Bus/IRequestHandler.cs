@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SaleIt.Infrastructure.Bus
+namespace SaleIt.Bus
 {
     /// <summary>
     /// Defines a handler for a request

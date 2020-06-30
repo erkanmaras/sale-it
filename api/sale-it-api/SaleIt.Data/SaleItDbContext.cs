@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SaleIt.Data.Extensions;
 using SaleIt.Domain.Sale.Entities;
 
 namespace SaleIt.Data
@@ -11,9 +12,9 @@ namespace SaleIt.Data
     public class SaleItDbContext : DbContext
     {
 
-        public DbSet<SaleDocument> Sales { get; set; } = null!;
-        public DbSet<SaleDocumentLine> SaleLines { get; set; } = null!;
-        public DbSet<SaleDocumentLine> Products { get; set; } = null!;
+        public DbSet<SaleDocument?> Sales { get; set; } = null!;
+        public DbSet<SaleDocumentLine?> SaleLines { get; set; } = null!;
+        public DbSet<SaleDocumentLine?> Products { get; set; } = null!;
         //public DbSet<Payment> Payments { get; set; }
         //public DbSet<Customer> Customers { get; set; }
         //public DbSet<UserData> Users { get; set; }

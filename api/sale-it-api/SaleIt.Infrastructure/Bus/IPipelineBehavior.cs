@@ -1,5 +1,5 @@
 
-namespace SaleIt.Infrastructure.Bus
+namespace SaleIt.Bus
 {
     using System.Threading;
     using System.Threading.Tasks;

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Data.Sale.EfConfigurations;
 
-namespace SaleIt.Data
+namespace SaleIt.Data.Extensions
 {
-    public static class DataExtensions
+    public static class ModelBuilderExtensions
     {
         public static void ApplyConfigurations(this ModelBuilder modelBuilder)
         {

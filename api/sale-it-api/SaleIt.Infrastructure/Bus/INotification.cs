@@ -1,4 +1,4 @@
-namespace SaleIt.Infrastructure.Bus
+namespace SaleIt.Bus
 {
     /// <summary>
     /// Marker interface to represent a notification
