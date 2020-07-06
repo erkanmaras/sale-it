@@ -54,9 +54,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <returns>An <see cref="IPagedList{T}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>Ex: This method defaults to a read-only, no-tracking query.</remarks>
         public IQueryable<TEntity> GetAll(
-            Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, bool disableTracking = true)
+            Expression<Func<TEntity, bool>>? predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool disableTracking = true)
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -93,9 +93,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="disableTracking"><c>True</c> to disable changing tracking; otherwise, <c>false</c>. Default to <c>true</c>.</param>
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        public virtual IPagedList<TEntity> GetPagedList(Expression<Func<TEntity, bool>> predicate = null,
-                                                Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+        public virtual IPagedList<TEntity> GetPagedList(Expression<Func<TEntity, bool>>? predicate = null,
+                                                Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                 int pageIndex = 0,
                                                 int pageSize = 20,
                                                 bool disableTracking = true)
@@ -139,9 +139,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </param>
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        public virtual Task<IPagedList<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> predicate = null,
-                                                           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                           Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+        public virtual Task<IPagedList<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>>? predicate = null,
+                                                           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                           Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                            int pageIndex = 0,
                                                            int pageSize = 20,
                                                            bool disableTracking = true,
@@ -185,9 +185,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <returns>An <see cref="IPagedList{TResult}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
         public virtual IPagedList<TResult> GetPagedList<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                                         Expression<Func<TEntity, bool>> predicate = null,
-                                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+                                                         Expression<Func<TEntity, bool>>? predicate = null,
+                                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                          int pageIndex = 0,
                                                          int pageSize = 20,
                                                          bool disableTracking = true)
@@ -234,9 +234,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
         public virtual Task<IPagedList<TResult>> GetPagedListAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                                                    Expression<Func<TEntity, bool>> predicate = null,
-                                                                    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                                    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+                                                                    Expression<Func<TEntity, bool>>? predicate = null,
+                                                                    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                                    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                                     int pageIndex = 0,
                                                                     int pageSize = 20,
                                                                     bool disableTracking = true,
@@ -277,9 +277,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="disableTracking"><c>True</c> to disable changing tracking; otherwise, <c>false</c>. Default to <c>true</c>.</param>
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        public virtual TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> predicate = null,
-                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+        public virtual TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>>? predicate = null,
+                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                          bool disableTracking = true)
         {
             IQueryable<TEntity> query = dbSet;
@@ -307,9 +307,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
             return query.FirstOrDefault();
         }
 
-        public virtual async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+        public virtual async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>>? predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
             bool disableTracking = true)
         {
             IQueryable<TEntity> query = dbSet;
@@ -348,9 +348,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
         public virtual TResult GetFirstOrDefault<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                                  Expression<Func<TEntity, bool>> predicate = null,
-                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+                                                  Expression<Func<TEntity, bool>>? predicate = null,
+                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                   bool disableTracking = true)
         {
             IQueryable<TEntity> query = dbSet;
@@ -380,9 +380,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
 
         /// <inheritdoc />
         public virtual async Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                                  Expression<Func<TEntity, bool>> predicate = null,
-                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+                                                  Expression<Func<TEntity, bool>>? predicate = null,
+                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                   bool disableTracking = true)
         {
             IQueryable<TEntity> query = dbSet;
@@ -445,7 +445,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual int Count(Expression<Func<TEntity, bool>> predicate = null)
+        public virtual int Count(Expression<Func<TEntity, bool>>? predicate = null)
         {
             if (predicate == null)
             {
@@ -460,7 +460,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
+        public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null)
         {
             if (predicate == null)
             {
@@ -475,7 +475,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual long LongCount(Expression<Func<TEntity, bool>> predicate = null)
+        public virtual long LongCount(Expression<Func<TEntity, bool>>? predicate = null)
         {
             if (predicate == null)
             {
@@ -490,7 +490,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual async Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate = null)
+        public virtual async Task<long> LongCountAsync(Expression<Func<TEntity, bool>>? predicate = null)
         {
             if (predicate == null)
             {
@@ -506,10 +506,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual T Max<T>(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, T>> selector = null)
+        public virtual T Max<T>(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, T>> selector = null)
         {
             if (predicate == null)
+            {
                 return dbSet.Max(selector);
+            }
+
             return dbSet.Where(predicate).Max(selector);
         }
 
@@ -519,10 +522,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual async Task<T> MaxAsync<T>(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, T>> selector = null)
+        public virtual async Task<T> MaxAsync<T>(Expression<Func<TEntity, bool>>?  predicate = null, Expression<Func<TEntity, T>>? selector = null)
         {
             if (predicate == null)
+            {
                 return await dbSet.MaxAsync(selector);
+            }
+
             return await dbSet.Where(predicate).MaxAsync(selector);
         }
 
@@ -532,10 +538,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual T Min<T>(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, T>> selector = null)
+        public virtual T Min<T>(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, T>>? selector = null)
         {
             if (predicate == null)
+            {
                 return dbSet.Min(selector);
+            }
+
             return dbSet.Where(predicate).Min(selector);
         }
 
@@ -545,10 +554,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual async Task<T> MinAsync<T>(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, T>> selector = null)
+        public virtual async Task<T> MinAsync<T>(Expression<Func<TEntity, bool>>?  predicate = null, Expression<Func<TEntity, T>>? selector = null)
         {
             if (predicate == null)
+            {
                 return await dbSet.MinAsync(selector);
+            }
+
             return await dbSet.Where(predicate).MinAsync(selector);
         }
 
@@ -558,10 +570,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual decimal Average(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, decimal>> selector = null)
+        public virtual decimal Average(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>>? selector = null)
         {
             if (predicate == null)
+            {
                 return dbSet.Average(selector);
+            }
+
             return dbSet.Where(predicate).Average(selector);
         }
 
@@ -571,10 +586,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual async Task<decimal> AverageAsync(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, decimal>> selector = null)
+        public virtual async Task<decimal> AverageAsync(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>>? selector = null)
         {
             if (predicate == null)
+            {
                 return await dbSet.AverageAsync(selector);
+            }
+
             return await dbSet.Where(predicate).AverageAsync(selector);
         }
 
@@ -584,10 +602,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual decimal Sum(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, decimal>> selector = null)
+        public virtual decimal Sum(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>> selector = null)
         {
             if (predicate == null)
+            {
                 return dbSet.Sum(selector);
+            }
+
             return dbSet.Where(predicate).Sum(selector);
         }
 
@@ -597,10 +618,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual async Task<decimal> SumAsync(Expression<Func<TEntity, bool>> predicate = null, Expression<Func<TEntity, decimal>> selector = null)
+        public virtual async Task<decimal> SumAsync(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>>? selector = null)
         {
             if (predicate == null)
+            {
                 return await dbSet.SumAsync(selector);
+            }
+
             return await dbSet.Where(predicate).SumAsync(selector);
         }
 
@@ -609,7 +633,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </summary>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public bool Exists(Expression<Func<TEntity, bool>> selector = null)
+        public bool Any(Expression<Func<TEntity, bool>>? selector = null)
         {
             if (selector == null)
             {
@@ -623,7 +647,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </summary>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> selector = null)
+        public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>>? selector = null)
         {
             if (selector == null)
             {
@@ -636,7 +660,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// Inserts a new entity synchronously.
         /// </summary>
         /// <param name="entity">The entity to insert.</param>
-        public virtual TEntity Insert(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             return dbSet.Add(entity).Entity;
         }
@@ -645,13 +669,13 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// Inserts a range of entities synchronously.
         /// </summary>
         /// <param name="entities">The entities to insert.</param>
-        public virtual void Insert(params TEntity[] entities) => dbSet.AddRange(entities);
+        public virtual void Add(params TEntity[] entities) => dbSet.AddRange(entities);
 
         /// <summary>
         /// Inserts a range of entities synchronously.
         /// </summary>
         /// <param name="entities">The entities to insert.</param>
-        public virtual void Insert(IEnumerable<TEntity> entities) => dbSet.AddRange(entities);
+        public virtual void Add(IEnumerable<TEntity> entities) => dbSet.AddRange(entities);
 
         /// <summary>
         /// Inserts a new entity asynchronously.
@@ -659,7 +683,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="entity">The entity to insert.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous insert operation.</returns>
-        public virtual ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual ValueTask<EntityEntry<TEntity>> AddAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
         {
             return dbSet.AddAsync(entity, cancellationToken);
 
@@ -675,7 +699,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// </summary>
         /// <param name="entities">The entities to insert.</param>
         /// <returns>A <see cref="Task" /> that represents the asynchronous insert operation.</returns>
-        public virtual Task InsertAsync(params TEntity[] entities) => dbSet.AddRangeAsync(entities);
+        public virtual Task AddAsync(params TEntity[] entities) => dbSet.AddRangeAsync(entities);
 
         /// <summary>
         /// Inserts a range of entities asynchronously.
@@ -683,7 +707,7 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="entities">The entities to insert.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous insert operation.</returns>
-        public virtual Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken)) => dbSet.AddRangeAsync(entities, cancellationToken);
+        public virtual Task AddAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken)) => dbSet.AddRangeAsync(entities, cancellationToken);
 
         /// <summary>
         /// Updates the specified entity.
@@ -717,16 +741,16 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         public virtual void Update(IEnumerable<TEntity> entities) => dbSet.UpdateRange(entities);
 
         /// <summary>
-        /// Deletes the specified entity.
+        /// Removes the specified entity.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
-        public virtual void Delete(TEntity entity) => dbSet.Remove(entity);
+        public virtual void Remove(TEntity entity) => dbSet.Remove(entity);
 
         /// <summary>
-        /// Deletes the entity by the specified primary key.
+        /// Removes the entity by the specified primary key.
         /// </summary>
         /// <param name="id">The primary key value.</param>
-        public virtual void Delete(object id)
+        public virtual void Remove(object id)
         {
             // using a stub entity to mark for deletion
             var typeInfo = typeof(TEntity).GetTypeInfo();
@@ -743,22 +767,22 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
                 var entity = dbSet.Find(id);
                 if (entity != null)
                 {
-                    Delete(entity);
+                    Remove(entity);
                 }
             }
         }
 
         /// <summary>
-        /// Deletes the specified entities.
+        /// Removes the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void Delete(params TEntity[] entities) => dbSet.RemoveRange(entities);
+        public virtual void Remove(params TEntity[] entities) => dbSet.RemoveRange(entities);
 
         /// <summary>
-        /// Deletes the specified entities.
+        /// Removes the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void Delete(IEnumerable<TEntity> entities) => dbSet.RemoveRange(entities);
+        public virtual void Remove(IEnumerable<TEntity> entities) => dbSet.RemoveRange(entities);
 
         /// <summary>
         /// Gets all entities. This method is not recommended
@@ -778,9 +802,9 @@ namespace Arch.EntityFrameworkCore.UnitOfWork
         /// <param name="disableTracking"><c>true</c> to disable changing tracking; otherwise, <c>false</c>. Default to <c>true</c>.</param>
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>Ex: This method defaults to a read-only, no-tracking query.</remarks>
-        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
             bool disableTracking = true)
         {
             IQueryable<TEntity> query = dbSet;

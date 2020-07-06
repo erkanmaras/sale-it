@@ -7,37 +7,30 @@ using SaleIt.Domain.Sale.Repositories;
 
 namespace SaleIt.Data.Sale.Repositories
 {
-    public class SaleDocumentRepository : EntityFrameworkRepository<SaleDocument> ,ISaleDocumentRepository
+    public class SaleDocumentRepository : EntityFrameworkRepository<SaleDocument>, ISaleDocumentRepository
     {
         public SaleDocumentRepository(DbContext dbContext) : base(dbContext)
         {
         }
 
-        public async Task<SaleDocument?> FindAsync(Guid saleId)
+        async ValueTask<SaleDocument?> ISaleDocumentRepository.FindAsync(Guid saleId)
         {
-            var sale = await base.FindAsync(saleId);
-            if (sale != null)
-            {
-                await dbContext.Entry(sale)
-                    .Collection(i => i.Lines).LoadAsync();
-            }
-
-            return sale;
+            return await base.FindAsync(saleId);
         }
 
-        public SaleDocument? Add(SaleDocument? saleDocument)
+        SaleDocument ISaleDocumentRepository.Add(SaleDocument saleDocument)
         {
-            return base.Insert(saleDocument);
+            return base.Add(saleDocument);
         }
 
-        public void Update(SaleDocument? saleDocument)
+        void ISaleDocumentRepository.Update(SaleDocument saleDocument)
         {
-            base.Update(saleDocument); 
+            base.Update(saleDocument);
         }
 
-        public void Remove(Guid saleId)
+        void ISaleDocumentRepository.Remove(Guid saleId)
         {
-            base.Delete(saleId); 
+            base.Remove(saleId);
         }
     }
 }
