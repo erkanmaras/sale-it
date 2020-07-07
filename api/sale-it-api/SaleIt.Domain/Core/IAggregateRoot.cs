@@ -16,5 +16,9 @@
 
 namespace SaleIt.Domain.Core
 {
-    public interface IAggregateRoot { }
+    public interface IAggregateRoot {
+
+
+
+       }
 }

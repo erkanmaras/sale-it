@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SaleIt.Data.Sale.EfConfigurations;
+using SaleIt.Data.Sale.EntityFramework.Configurations;
 
 namespace SaleIt.Data.Extensions
 {
-    public static class ModelBuilderExtensions
+    internal static class ModelBuilderExtensions
     {
         public static void ApplyConfigurations(this ModelBuilder modelBuilder)
         {

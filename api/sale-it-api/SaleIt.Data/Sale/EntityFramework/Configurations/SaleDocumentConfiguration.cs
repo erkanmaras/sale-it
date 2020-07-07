@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SaleIt.Domain.Sale.Entities;
 
-namespace SaleIt.Data.Sale.EfConfigurations
+namespace SaleIt.Data.Sale.EntityFramework.Configurations
 {
     internal class SaleDocumentConfiguration : IEntityTypeConfiguration<SaleDocument>
     {

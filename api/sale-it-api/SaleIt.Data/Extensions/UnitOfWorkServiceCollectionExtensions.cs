@@ -1,6 +1,4 @@
-﻿// Copyright (c) Arch team. All rights reserved.
-
-using Arch.EntityFrameworkCore.UnitOfWork;
+﻿ 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SaleIt.Domain.Core;

@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Arch.EntityFrameworkCore.UnitOfWork
+namespace SaleIt.Data
 {
     /// <summary>
     /// Represents a default generic repository implements the <see cref="IRepository"/> interface.

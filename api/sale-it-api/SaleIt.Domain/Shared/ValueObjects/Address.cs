@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaleIt.Domain.Customer.ValueObjects
+namespace SaleIt.Domain.Shared.ValueObjects
 {
-    public class CustomerAddress : ValueObject
+    public class Address : ValueObject
     {
 
 
-        private CustomerAddress() { }
+        private Address() { }
 
-        public CustomerAddress(string country, string state, string city, string district, string street, string zipcode)
+        public Address(string country, string state, string city, string district, string street, string zipcode)
         {
 
             _country = country;

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SaleIt.Domain.Core;
+using System;
 
 namespace SaleIt.Domain.Sale.Entities
 {
-    public class Product
+    public class Product: Entity
     {
 
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.

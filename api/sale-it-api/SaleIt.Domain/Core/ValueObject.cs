@@ -24,7 +24,7 @@ namespace SaleIt.Domain.Core
 
         protected abstract IEnumerable<object> GetEquitableValues();
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || obj.GetType() != GetType())
             {

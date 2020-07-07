@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SaleIt.Domain.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SaleIt.Domain.Sale.Entities
 {
-    public class SaleDocument
+    public class SaleDocument : Entity, IAggregateRoot
     {
         private SaleDocument()
         {
@@ -18,7 +19,7 @@ namespace SaleIt.Domain.Sale.Entities
             // required for orm delete
         }
 
-        public SaleDocument(Guid saleId, string documentNo, DateTime documentDate, Guid customerId)
+        public SaleDocument(Guid saleId, string documentNo, DateTime documentDate)
         {
             this.saleId = saleId;
             this.documentNo = documentNo;
@@ -67,7 +68,7 @@ namespace SaleIt.Domain.Sale.Entities
 
         public void ChangeDocumentDate(DateTime date)
         {
-             documentDate = date;
+            documentDate = date;
         }
 
         public bool HasCustomer()

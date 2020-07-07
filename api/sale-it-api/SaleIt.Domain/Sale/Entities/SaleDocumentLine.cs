@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SaleIt.Domain.Core;
+using System;
+
 
 namespace SaleIt.Domain.Sale.Entities
 {
-    public class SaleDocumentLine
+    public class SaleDocumentLine : Entity
     {
         
         public SaleDocumentLine(Guid saleLineId, Guid saleId,Product product, decimal units, decimal discount  , decimal tax ,decimal amount)

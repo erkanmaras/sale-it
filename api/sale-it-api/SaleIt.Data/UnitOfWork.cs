@@ -1,13 +1,11 @@
-﻿// Copyright (c) Arch team. All rights reserved.
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Data.Sale.Repositories;
 using SaleIt.Domain.Core;
 using SaleIt.Domain.Sale.Repositories;
 
-namespace Arch.EntityFrameworkCore.UnitOfWork
+namespace SaleIt.Data
 {
     /// <summary>
     /// Represents the default implementation of the <see cref="IUnitOfWork"/> interface.
