@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Arch.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Domain.Sale.Entities;
 using SaleIt.Domain.Sale.Repositories;

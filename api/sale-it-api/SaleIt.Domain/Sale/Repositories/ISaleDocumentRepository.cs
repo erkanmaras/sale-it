@@ -14,5 +14,6 @@ namespace SaleIt.Domain.Sale.Repositories
         void Update(SaleDocument saleDocument);
 
         void Remove(Guid saleId);
+
     }
 }
