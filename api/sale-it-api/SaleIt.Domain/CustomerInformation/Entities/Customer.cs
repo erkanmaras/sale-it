@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaleIt.Domain.Customer.Entities
+namespace SaleIt.Domain.CustomerInformation.Entities
 {
     public class Customer
     {
