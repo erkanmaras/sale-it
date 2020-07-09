@@ -14,12 +14,7 @@ namespace SaleIt.Domain.Sale.Entities
             // required for orm
         }
 
-        private SaleDocument(Guid saleId)
-        {
-            // required for orm delete
-        }
-
-        public SaleDocument(Guid saleId, string documentNo, DateTime documentDate)
+        public SaleDocument(Guid saleId, string documentNo, DateTimeOffset documentDate)
         {
             this.saleId = saleId;
             this.documentNo = documentNo;
@@ -50,8 +45,8 @@ namespace SaleIt.Domain.Sale.Entities
             }
         }
 
-        private DateTime documentDate;
-        public DateTime DocumentDate => documentDate;
+        private DateTimeOffset documentDate;
+        public DateTimeOffset DocumentDate => documentDate;
 
         private List<SaleDocumentLine> lines;
         public IReadOnlyCollection<SaleDocumentLine> Lines => lines;
@@ -78,11 +73,6 @@ namespace SaleIt.Domain.Sale.Entities
         public decimal Total => Lines.Sum(l => l.Amount);
 
         #region Factory Methods
-
-        public static SaleDocument CreateForDelete(Guid saleId)
-        {
-            return new SaleDocument(saleId);
-        }
 
         #endregion
     }

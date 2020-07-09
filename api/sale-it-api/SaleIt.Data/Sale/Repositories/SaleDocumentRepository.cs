@@ -12,9 +12,10 @@ namespace SaleIt.Data.Sale.Repositories
         {
         }
 
-        async ValueTask<SaleDocument?> ISaleDocumentRepository.FindAsync(Guid saleId)
+        async Task<SaleDocument?> ISaleDocumentRepository.FindAsync(Guid saleId)
         {
-            return await base.FindAsync(saleId);
+            return await base.GetFirstOrDefaultAsync(predicate:s=> s.SaleId==saleId,
+                include:s=> s.Include(f => f.Lines));
         }
 
         SaleDocument ISaleDocumentRepository.Add(SaleDocument saleDocument)

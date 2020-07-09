@@ -7,7 +7,7 @@ namespace SaleIt.Domain.Sale.Repositories
 {
     public interface ISaleDocumentRepository : IRepository
     {
-        ValueTask<SaleDocument?> FindAsync(Guid saleId);
+        Task<SaleDocument?> FindAsync(Guid saleId);
 
         SaleDocument? Add(SaleDocument saleDocument);
 
