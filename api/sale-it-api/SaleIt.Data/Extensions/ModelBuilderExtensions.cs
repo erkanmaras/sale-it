@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Microsoft.EntityFrameworkCore;
-using SaleIt.Data.Sale.EntityFramework.Configurations;
+using SaleIt.Data.CustomerInformation.EfConfigurations;
+using SaleIt.Data.Sale.EfConfigurations;
 
 namespace SaleIt.Data.Extensions
 {
@@ -14,6 +11,7 @@ namespace SaleIt.Data.Extensions
         {
             modelBuilder.ApplyConfiguration(new SaleDocumentConfiguration());
             modelBuilder.ApplyConfiguration(new SaleDocumentLineConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             //modelBuilder.ApplyConfiguration(new PaymentDataConfiguration());
             //modelBuilder.ApplyConfiguration(new CustomerDataConfiguration());
             //modelBuilder.ApplyConfiguration(new UserDataConfiguration());
