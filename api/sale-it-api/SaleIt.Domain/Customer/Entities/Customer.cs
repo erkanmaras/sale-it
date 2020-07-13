@@ -2,7 +2,7 @@
 using System;
 using SaleIt.Domain.Shared.ValueObjects;
 
-namespace SaleIt.Domain.CustomerInformation.Entities
+namespace SaleIt.Domain.Customer.Entities
 {
     public class Customer
     {
