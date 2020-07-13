@@ -1,9 +1,5 @@
 ﻿using SaleIt.Domain.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SaleIt.Domain.Shared.ValueObjects
 {
@@ -13,35 +9,35 @@ namespace SaleIt.Domain.Shared.ValueObjects
 
         private Address() { }
 
-        public Address(string country, string state, string city, string district, string street, string zipcode)
+        public Address(string country, string state, string city, string district, string street, string zipCode)
         {
 
-            _country = country;
-            _state = state;
-            _city = city;
-            _district = district;
-            _street = street;
-            _zipCode = zipcode;
+            this.country = country;
+            this.state = state;
+            this.city = city;
+            this.district = district;
+            this.street = street;
+            this.zipCode = zipCode;
         }
 
-        private readonly string _street;
-        public string Street => _street;
+        private readonly string street;
+        public string Street => street;
 
 
-        private readonly string _district;
-        public string District => _district;
+        private readonly string district;
+        public string District => district;
 
-        private readonly string _city;
-        public string City => _city;
+        private readonly string city;
+        public string City => city;
 
-        private readonly string _state;
-        public string State => _state;
+        private readonly string state;
+        public string State => state;
 
-        private readonly string _country;
-        public string Country => _country;
+        private readonly string country;
+        public string Country => country;
 
-        private readonly string _zipCode;
-        public string ZipCode => _zipCode;
+        private readonly string zipCode;
+        public string ZipCode => zipCode;
 
         protected override IEnumerable<object> GetEquitableValues()
         {

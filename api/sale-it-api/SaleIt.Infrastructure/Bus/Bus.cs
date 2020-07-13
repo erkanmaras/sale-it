@@ -13,9 +13,9 @@ namespace SaleIt.Bus
     /// </summary>
     public class Bus : IBus
     {
-        private readonly ServiceFactory _serviceFactory;
-        private static readonly ConcurrentDictionary<Type, object> _requestHandlers = new ConcurrentDictionary<Type, object>();
-        private static readonly ConcurrentDictionary<Type, NotificationHandlerWrapper> _notificationHandlers = new ConcurrentDictionary<Type, NotificationHandlerWrapper>();
+        private readonly ServiceFactory serviceFactory;
+        private static readonly ConcurrentDictionary<Type, object> RequestHandlers = new ConcurrentDictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, NotificationHandlerWrapper> NotificationHandlers = new ConcurrentDictionary<Type, NotificationHandlerWrapper>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Bus"/> class.
@@ -23,7 +23,7 @@ namespace SaleIt.Bus
         /// <param name="serviceFactory">The single instance factory.</param>
         public Bus(ServiceFactory serviceFactory)
         {
-            _serviceFactory = serviceFactory;
+            this.serviceFactory = serviceFactory;
         }
 
         public Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
@@ -35,10 +35,10 @@ namespace SaleIt.Bus
 
             var requestType = request.GetType();
 
-            var handler = (RequestHandlerWrapper<TResponse>)_requestHandlers.GetOrAdd(requestType,
+            var handler = (RequestHandlerWrapper<TResponse>)RequestHandlers.GetOrAdd(requestType,
                 t => Activator.CreateInstance(typeof(RequestHandlerWrapperImpl<,>).MakeGenericType(requestType, typeof(TResponse))));
 
-            return handler.Handle(request, cancellationToken, _serviceFactory);
+            return handler.Handle(request, cancellationToken, serviceFactory);
         }
 
         public Task<object?> Send(object request, CancellationToken cancellationToken = default)
@@ -59,11 +59,11 @@ namespace SaleIt.Bus
             }
 
             var responseType = requestInterfaceType!.GetGenericArguments()[0];
-            var handler = _requestHandlers.GetOrAdd(requestType,
+            var handler = RequestHandlers.GetOrAdd(requestType,
                 t => Activator.CreateInstance(typeof(RequestHandlerWrapperImpl<,>).MakeGenericType(requestType, responseType)));
 
             // call via dynamic dispatch to avoid calling through reflection for performance reasons
-            return ((RequestHandlerBase) handler).Handle(request, cancellationToken, _serviceFactory);
+            return ((RequestHandlerBase) handler).Handle(request, cancellationToken, serviceFactory);
         }
 
         public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default)
@@ -109,10 +109,10 @@ namespace SaleIt.Bus
         private Task PublishNotification(INotification notification, CancellationToken cancellationToken = default)
         {
             var notificationType = notification.GetType();
-            var handler = _notificationHandlers.GetOrAdd(notificationType,
+            var handler = NotificationHandlers.GetOrAdd(notificationType,
                 t => (NotificationHandlerWrapper)Activator.CreateInstance(typeof(NotificationHandlerWrapperImpl<>).MakeGenericType(notificationType)));
 
-            return handler.Handle(notification, cancellationToken, _serviceFactory, PublishCore);
+            return handler.Handle(notification, cancellationToken, serviceFactory, PublishCore);
         }
     }
 }

@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SaleIt.Infrastructure.Reflection
 {
     public class TypeReflector
     {
+
         public bool TrySet<T>(object obj, string memberName, T value)
         {
             try
             {
-                var mInfo = obj.GetType().GetMember(memberName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault();
+                var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                var mInfo = obj.GetType().GetMember(memberName, flags).FirstOrDefault();
 
                 switch (mInfo)
                 {
@@ -38,21 +36,23 @@ namespace SaleIt.Infrastructure.Reflection
             return true;
         }
 
+
         [return: MaybeNull]
         public T TryGet<T>(object obj, string memberName)
         {
             try
             {
-                var mInfo = obj.GetType().GetMember(memberName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault();
+                const BindingFlags Flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                var mInfo = obj.GetType().GetMember(memberName, Flags).FirstOrDefault();
 
                 switch (mInfo)
                 {
                     case PropertyInfo pInfo when !pInfo.CanWrite:
-                        return default(T);
+                        return default;
                     case PropertyInfo pInfo:
-                        return (T)pInfo.GetValue(obj);
+                        return (T)pInfo.GetValue(obj)!;
                     case FieldInfo fInfo:
-                        return (T)fInfo.GetValue(obj);
+                        return (T)fInfo.GetValue(obj)!;
                 }
             }
             catch
@@ -66,7 +66,6 @@ namespace SaleIt.Infrastructure.Reflection
 
         public static Func<TObject, TReturn> CreateGetter<TObject, TReturn>(object obj, string memberName)
         {
-
             var containerType = obj.GetType();
             var param = Expression.Parameter(typeof(TObject));
 

@@ -12,18 +12,18 @@ namespace SaleIt.Bus.Pipeline
     public class RequestPostProcessorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
     {
-        private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> _postProcessors;
+        private readonly IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors;
 
         public RequestPostProcessorBehavior(IEnumerable<IRequestPostProcessor<TRequest, TResponse>> postProcessors)
         {
-            _postProcessors = postProcessors;
+            this.postProcessors = postProcessors;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             var response = await next().ConfigureAwait(false);
 
-            foreach (var processor in _postProcessors)
+            foreach (var processor in postProcessors)
             {
                 await processor.Process(request, response, cancellationToken).ConfigureAwait(false);
             }

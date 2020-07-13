@@ -18,9 +18,9 @@ namespace SaleIt.Bus.Pipeline
     public class RequestExceptionProcessorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
     {
-        private readonly ServiceFactory _serviceFactory;
+        private readonly ServiceFactory serviceFactory;
 
-        public RequestExceptionProcessorBehavior(ServiceFactory serviceFactory) => _serviceFactory = serviceFactory;
+        public RequestExceptionProcessorBehavior(ServiceFactory serviceFactory) => this.serviceFactory = serviceFactory;
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
@@ -64,7 +64,7 @@ namespace SaleIt.Bus.Pipeline
             var enumerableExceptionHandlerInterfaceType = typeof(IEnumerable<>).MakeGenericType(exceptionHandlerInterfaceType);
             handleMethodInfo = exceptionHandlerInterfaceType.GetMethod(nameof(IRequestExceptionHandler<TRequest, TResponse, Exception>.Handle));
 
-            var exceptionHandlers = (IEnumerable<object>)_serviceFactory.Invoke(enumerableExceptionHandlerInterfaceType);
+            var exceptionHandlers = (IEnumerable<object>)serviceFactory.Invoke(enumerableExceptionHandlerInterfaceType);
 
             return HandlersOrderer.Prioritize(exceptionHandlers.ToList(), request);
         }

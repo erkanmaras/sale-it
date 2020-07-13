@@ -1,9 +1,6 @@
-﻿using SaleIt.Domain.Customer.ValueObjects;
+﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SaleIt.Domain.Shared.ValueObjects;
 
 namespace SaleIt.Domain.CustomerInformation.Entities
 {
@@ -14,7 +11,7 @@ namespace SaleIt.Domain.CustomerInformation.Entities
 
         }
 
-        public Customer(Guid customerId, string name, string surname, CustomerAddress address)
+        public Customer(Guid customerId, string name, string surname, Address address)
         {
             this.customerId = customerId;
             this.name = name;
@@ -31,7 +28,7 @@ namespace SaleIt.Domain.CustomerInformation.Entities
         private string surname;
         public string Surname => surname;
 
-        private CustomerAddress address;
-        public CustomerAddress Address => address;
+        private Address address;
+        public Address Address => address;
     }
 }

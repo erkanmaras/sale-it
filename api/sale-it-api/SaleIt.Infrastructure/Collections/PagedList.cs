@@ -9,8 +9,8 @@ namespace SaleIt.Collections
     /// <summary>
     /// Represents the default implementation of the <see cref="IPagedList{T}"/> interface.
     /// </summary>
-    /// <typeparam name="T">The type of the data to page</typeparam>
-    public class PagedList<T> : IPagedList<T>
+    /// <typeparam name="TSource">The type of the data to page</typeparam>
+    public class PagedList<TSource> : IPagedList<TSource>
     {
         /// <summary>
         /// Gets or sets the index of the page.
@@ -42,7 +42,7 @@ namespace SaleIt.Collections
         /// Gets or sets the items.
         /// </summary>
         /// <value>The items.</value>
-        public IList<T> Items { get; set; }
+        public IList<TSource> Items { get; set; }
 
         /// <summary>
         /// Gets the has previous page.
@@ -63,39 +63,42 @@ namespace SaleIt.Collections
         /// <param name="pageIndex">The index of the page.</param>
         /// <param name="pageSize">The size of the page.</param>
         /// <param name="indexFrom">The index from.</param>
-        public PagedList(IEnumerable<T> source, int pageIndex, int pageSize, int indexFrom)
+        public PagedList(IEnumerable<TSource> source, int pageIndex, int pageSize, int indexFrom)
         {
             if (indexFrom > pageIndex)
             {
                 throw new ArgumentException($"indexFrom: {indexFrom} > pageIndex: {pageIndex}, must indexFrom <= pageIndex");
             }
 
-            if (source is IQueryable<T> querable)
+            if (source is IQueryable<TSource> queryable)
             {
                 PageIndex = pageIndex;
                 PageSize = pageSize;
                 IndexFrom = indexFrom;
-                TotalCount = querable.Count();
+                TotalCount = queryable.Count();
                 TotalPages = (int)Math.Ceiling(TotalCount / (double)PageSize);
 
-                Items = querable.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToList();
+                Items = queryable.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToList();
             }
             else
             {
+                var sourceArray = source as TSource[] ?? source.ToArray();
+                TotalCount = sourceArray.Count();
                 PageIndex = pageIndex;
                 PageSize = pageSize;
                 IndexFrom = indexFrom;
-                TotalCount = source.Count();
                 TotalPages = (int)Math.Ceiling(TotalCount / (double)PageSize);
-
-                Items = source.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToList();
+                Items = sourceArray.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToList();
             }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PagedList{T}" /> class.
         /// </summary>
-        public PagedList() => Items = new T[0];
+        public PagedList()
+        {
+            Items = new TSource[0];
+        }
     }
 
 
@@ -165,27 +168,28 @@ namespace SaleIt.Collections
                 throw new ArgumentException($"indexFrom: {indexFrom} > pageIndex: {pageIndex}, must indexFrom <= pageIndex");
             }
 
-            if (source is IQueryable<TSource> querable)
+            if (source is IQueryable<TSource> queryable)
             {
                 PageIndex = pageIndex;
                 PageSize = pageSize;
                 IndexFrom = indexFrom;
-                TotalCount = querable.Count();
+                TotalCount = queryable.Count();
                 TotalPages = (int)Math.Ceiling(TotalCount / (double)PageSize);
 
-                var items = querable.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToArray();
+                var items = queryable.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToArray();
 
                 Items = new List<TResult>(converter(items));
             }
             else
             {
+                var sourceArray = source as TSource[] ?? source.ToArray();
                 PageIndex = pageIndex;
                 PageSize = pageSize;
                 IndexFrom = indexFrom;
-                TotalCount = source.Count();
+                TotalCount = sourceArray.Count();
                 TotalPages = (int)Math.Ceiling(TotalCount / (double)PageSize);
 
-                var items = source.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToArray();
+                var items = sourceArray.Skip((PageIndex - IndexFrom) * PageSize).Take(PageSize).ToArray();
 
                 Items = new List<TResult>(converter(items));
             }
