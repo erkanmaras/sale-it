@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SaleIt.Bus
+namespace SaleIt.Mediator
 {
     /// <summary>
     /// Factory method used to resolve all services. For multiple instances, it will resolve against <see cref="IEnumerable{T}" />

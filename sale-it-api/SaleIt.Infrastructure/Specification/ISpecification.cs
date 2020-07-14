@@ -30,6 +30,6 @@ namespace SaleIt.Infrastructure.Specification
 
     public interface INotSpecification<T> : ISpecification<T>
     {
-        ISpecification<T> Inner { get; }
+        ISpecification<T> Spec { get; }
     }
 }

@@ -1,4 +1,4 @@
-namespace SaleIt.Bus.Internal
+namespace SaleIt.Mediator.Internal
 {
     using System;
     using System.Collections.Generic;

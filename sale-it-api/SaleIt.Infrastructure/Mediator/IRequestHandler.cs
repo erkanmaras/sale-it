@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SaleIt.Bus
+namespace SaleIt.Mediator
 {
     /// <summary>
     /// Defines a handler for a request

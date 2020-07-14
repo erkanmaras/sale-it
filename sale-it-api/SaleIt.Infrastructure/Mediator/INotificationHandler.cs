@@ -1,7 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
+using SaleIt.Mediator;
 
-namespace SaleIt.Bus
+namespace SaleIt.Mediator
 {
     /// <summary>
     /// Defines a handler for a notification

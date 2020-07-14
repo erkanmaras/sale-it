@@ -1,12 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SaleIt.Bus
+namespace SaleIt.Mediator
 {
     /// <summary>
-    /// Defines a Bus to encapsulate request/response and publishing interaction patterns
+    /// Defines a Mediator to encapsulate request/response and publishing interaction patterns
     /// </summary>
-    public interface IBus
+    public interface IMediator
     {
         /// <summary>
         /// Asynchronously send a request to a single handler

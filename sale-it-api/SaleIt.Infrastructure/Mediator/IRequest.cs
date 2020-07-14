@@ -1,4 +1,4 @@
-namespace SaleIt.Bus
+namespace SaleIt.Mediator
 {
     /// <summary>
     /// Marker interface to represent a request with a void response

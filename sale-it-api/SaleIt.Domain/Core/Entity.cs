@@ -1,9 +1,9 @@
-﻿using SaleIt.Bus;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SaleIt.Mediator;
 
 namespace SaleIt.Domain.Core
 {
-  public  class Entity
+  public class Entity
     {
         private List<INotification>? domainEvents;
         public IReadOnlyCollection<INotification>? DomainEvents => domainEvents?.AsReadOnly();

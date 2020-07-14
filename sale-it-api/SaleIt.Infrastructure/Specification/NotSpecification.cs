@@ -5,18 +5,18 @@ namespace SaleIt.Infrastructure.Specification
 {
     internal class NotSpecification<T> : INotSpecification<T>
     {
-        public ISpecification<T> Inner { get; }
+        public ISpecification<T> Spec { get; }
 
-        internal NotSpecification(ISpecification<T> inner)
+        internal NotSpecification(ISpecification<T> spec)
         {
-            Inner = inner ?? throw new ArgumentNullException(nameof(inner));
+            Spec = spec ?? throw new ArgumentNullException(nameof(spec));
         }
 
-        public Expression<Func<T, bool>> Expression => Inner.Expression.Not();
+        public Expression<Func<T, bool>> Expression => Spec.Expression.Not();
 
         public bool IsSatisfiedBy(T candidate)
         {
-            return !Inner.IsSatisfiedBy(candidate);
+            return !Spec.IsSatisfiedBy(candidate);
         }
     }
 

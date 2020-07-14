@@ -1,5 +1,5 @@
 
-namespace SaleIt.Bus
+namespace SaleIt.Mediator
 {
     using System.Threading;
     using System.Threading.Tasks;

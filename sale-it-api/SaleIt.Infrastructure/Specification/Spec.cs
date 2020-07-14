@@ -32,36 +32,7 @@ namespace SaleIt.Infrastructure.Specification
     /// <typeparam name="T">The type of the candidate.</typeparam>
     public class Spec<T> : ISpecification<T>
     {
-        protected bool Equals(Spec<T> other)
-        {
-            return expression.Equals(other.expression);
-        }
-
-        public override bool Equals(object? obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != this.GetType())
-            {
-                return false;
-            }
-
-            return Equals((Spec<T>)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return expression.GetHashCode();
-        }
-
+      
         private readonly Expression<Func<T, bool>> expression;
 
         /// <summary>
@@ -201,6 +172,36 @@ namespace SaleIt.Infrastructure.Specification
             return Expression.ToString();
         }
 
+        protected bool Equals(Spec<T> other)
+        {
+            return expression.Equals(other.expression);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            return Equals((Spec<T>)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return expression.GetHashCode();
+        }
+
 #pragma warning disable 693
         public sealed class And<T> : Spec<T>, IOrSpecification<T>
         {
@@ -248,18 +249,18 @@ namespace SaleIt.Infrastructure.Specification
 
         public sealed class Not<T> : Spec<T>, INotSpecification<T>
         {
-            public Spec<T> Inner { get; }
+            public Spec<T> Spec { get; }
 
-            ISpecification<T> INotSpecification<T>.Inner => Inner;
+            ISpecification<T> INotSpecification<T>.Spec => Spec;
 
             internal Not(Spec<T> spec) : base(spec.Expression.Not())
             {
-                Inner = spec;
+                Spec = spec;
             }
 
             public bool Is(T candidate)
             {
-                return !Inner.IsSatisfiedBy(candidate);
+                return !Spec.IsSatisfiedBy(candidate);
             }
         }
 

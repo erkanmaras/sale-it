@@ -1,4 +1,4 @@
-namespace SaleIt.Bus.Internal
+namespace SaleIt.Mediator.Internal
 {
     using System;
     using System.Linq;
@@ -42,22 +42,20 @@ namespace SaleIt.Bus.Internal
     internal class RequestHandlerWrapperImpl<TRequest, TResponse> : RequestHandlerWrapper<TResponse>
         where TRequest : IRequest<TResponse>
     {
-        public override Task<object?> Handle(object request, CancellationToken cancellationToken,
-            ServiceFactory serviceFactory)
+        public override Task<object?> Handle(object request, CancellationToken cancellationToken, ServiceFactory serviceFactory)
         {
             return Handle((IRequest<TResponse>)request, cancellationToken, serviceFactory)
                 .ContinueWith(t =>
                 {
                     if (t.IsFaulted)
                     {
-                        ExceptionDispatchInfo.Capture(t.Exception.InnerException).Throw();
+                        ExceptionDispatchInfo.Capture(t.Exception?.InnerException ?? t.Exception!).Throw();
                     }
                     return (object?)t.Result;
                 }, cancellationToken);
         }
 
-        public override Task<TResponse> Handle(IRequest<TResponse> request, CancellationToken cancellationToken,
-            ServiceFactory serviceFactory)
+        public override Task<TResponse> Handle(IRequest<TResponse> request, CancellationToken cancellationToken, ServiceFactory serviceFactory)
         {
             Task<TResponse> Handler() => GetHandler<IRequestHandler<TRequest, TResponse>>(serviceFactory).Handle((TRequest) request, cancellationToken);
 

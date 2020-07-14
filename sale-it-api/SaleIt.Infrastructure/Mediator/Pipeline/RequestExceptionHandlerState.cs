@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace SaleIt.Bus.Pipeline
+namespace SaleIt.Mediator.Pipeline
 {
     /// <summary>
     /// Represents the result of handling an exception thrown by a request handler

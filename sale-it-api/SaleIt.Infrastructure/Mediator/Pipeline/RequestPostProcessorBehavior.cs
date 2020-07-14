@@ -1,4 +1,4 @@
-namespace SaleIt.Bus.Pipeline
+namespace SaleIt.Mediator.Pipeline
 {
     using System.Collections.Generic;
     using System.Threading;

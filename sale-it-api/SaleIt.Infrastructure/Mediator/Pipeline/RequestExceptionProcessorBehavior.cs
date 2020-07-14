@@ -1,6 +1,6 @@
-namespace SaleIt.Bus.Pipeline
+namespace SaleIt.Mediator.Pipeline
 {
-    using SaleIt.Bus.Internal;
+    using SaleIt.Mediator.Internal;
     using System;
     using System.Collections.Generic;
     using System.Linq;

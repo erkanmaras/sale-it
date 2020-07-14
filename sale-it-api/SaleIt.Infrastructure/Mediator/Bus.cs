@@ -1,27 +1,30 @@
-namespace SaleIt.Bus
+
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using SaleIt.Mediator.Internal;
+
+namespace SaleIt.Mediator
 {
-    using Internal;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
+
 
     /// <summary>
-    /// Default Bus implementation relying on single- and multi instance delegates for resolving handlers.
+    /// Default Mediator implementation relying on single- and multi instance delegates for resolving handlers.
     /// </summary>
-    public class Bus : IBus
+    public class Mediator : IMediator
     {
         private readonly ServiceFactory serviceFactory;
         private static readonly ConcurrentDictionary<Type, object> RequestHandlers = new ConcurrentDictionary<Type, object>();
         private static readonly ConcurrentDictionary<Type, NotificationHandlerWrapper> NotificationHandlers = new ConcurrentDictionary<Type, NotificationHandlerWrapper>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Bus"/> class.
+        /// Initializes a new instance of the <see cref="Mediator"/> class.
         /// </summary>
         /// <param name="serviceFactory">The single instance factory.</param>
-        public Bus(ServiceFactory serviceFactory)
+        public Mediator(ServiceFactory serviceFactory)
         {
             this.serviceFactory = serviceFactory;
         }
@@ -63,7 +66,7 @@ namespace SaleIt.Bus
                 t => Activator.CreateInstance(typeof(RequestHandlerWrapperImpl<,>).MakeGenericType(requestType, responseType)));
 
             // call via dynamic dispatch to avoid calling through reflection for performance reasons
-            return ((RequestHandlerBase) handler).Handle(request, cancellationToken, serviceFactory);
+            return ((RequestHandlerBase)handler).Handle(request, cancellationToken, serviceFactory);
         }
 
         public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default)

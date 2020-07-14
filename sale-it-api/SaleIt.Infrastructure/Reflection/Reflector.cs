@@ -86,7 +86,7 @@ namespace SaleIt.Infrastructure.Reflection
             return Expression.Lambda<Func<TObject, TReturn>>(body, param).Compile();
         }
 
-        public static Action<TObject, TValue>? CreateSetter<TObject, TValue>(object obj, string memberName)
+        public static Action<TObject, TValue> CreateSetter<TObject, TValue>(object obj, string memberName)
         {
             var type = obj.GetType();
             var objParam = Expression.Parameter(typeof(TObject));

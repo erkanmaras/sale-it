@@ -6,9 +6,7 @@ namespace SaleIt.Domain.Sale.Entities
     public class Product: Entity
     {
 
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
         private Product()
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
         {
             // required for orm
         }
@@ -22,19 +20,19 @@ namespace SaleIt.Domain.Sale.Entities
             this.price = price;
         }
 
-        public Guid productId;
+        private Guid productId;
         public Guid ProductId => productId;
 
-        public string barCode;
+        private string barCode = null!;
         public string Barcode => barCode;
 
-        public string name;
+        private string name = null!;
         public string Name => name;
 
-        public decimal taxRate;
+        private decimal taxRate;
         public decimal TaxRate => taxRate;
 
-        public decimal price;
+        private decimal price;
         public decimal Price => price;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SaleIt.Bus
+﻿namespace SaleIt.Mediator
 {
     using System;
     using System.Threading.Tasks;

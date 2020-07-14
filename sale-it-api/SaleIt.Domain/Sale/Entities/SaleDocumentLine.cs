@@ -6,7 +6,12 @@ namespace SaleIt.Domain.Sale.Entities
 {
     public class SaleDocumentLine : Entity
     {
-        
+
+        private SaleDocumentLine()
+        {
+            // required for orm
+        }
+
         public SaleDocumentLine(Guid saleLineId, Guid saleId,Product product, decimal units, decimal discount  , decimal tax ,decimal amount)
         {
             this.saleLineId = saleLineId;
