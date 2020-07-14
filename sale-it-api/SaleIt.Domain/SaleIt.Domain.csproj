@@ -7,8 +7,8 @@
 
   <ItemGroup>
     <Folder Include="Auth\" />
-    <Folder Include="Payment\" />
-    <Folder Include="Sale\ValueObjects\" />
+    <Folder Include="Payments\" />
+    <Folder Include="Sales\ValueObjects\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
-﻿using SaleIt.Domain.Sale.Repositories;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using SaleIt.Domain.Sales.Repositories;
 
 namespace SaleIt.Domain.Core
 {

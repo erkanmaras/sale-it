@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Data.Extensions;
-using SaleIt.Domain.Customer.Entities;
-using SaleIt.Domain.Sale.Entities;
+using SaleIt.Domain.Customers.Entities;
+using SaleIt.Domain.Sales.Entities;
 
 namespace SaleIt.Data
 {

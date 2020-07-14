@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using SaleIt.Data.CustomerInformation.EfConfigurations;
-using SaleIt.Data.Sale.EfConfigurations;
+using SaleIt.Data.Customers.EfConfigurations;
+using SaleIt.Data.Sales.EfConfigurations;
 
 namespace SaleIt.Data.Extensions
 {

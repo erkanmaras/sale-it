@@ -7,10 +7,10 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SaleIt.Data.Sales.Repositories;
 using SaleIt.Mediator;
-using SaleIt.Data.Sale.Repositories;
 using SaleIt.Domain.Core;
-using SaleIt.Domain.Sale.Repositories;
+using SaleIt.Domain.Sales.Repositories;
 using SaleIt.Infrastructure.Extensions;
 
 namespace SaleIt.Data
