@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -22,27 +23,27 @@ namespace SaleIt.Data
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public class EntityFrameworkRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext dbContext;
-        protected readonly DbSet<TEntity> dbSet;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="Repository{TEntity}"/> class.
+        /// Initializes a new instance of the <see cref="EntityFrameworkRepository{TEntity}"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
         public EntityFrameworkRepository(DbContext dbContext)
         {
-            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            dbSet = this.dbContext.Set<TEntity>();
+            this.DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.DbSet = this.DbContext.Set<TEntity>();
         }
 
-        /// <summary>
-        /// Gets all entities. This method is not recommended
-        /// </summary>
-        /// <returns>The <see cref="IQueryable{TEntity}"/>.</returns>
-        public IQueryable<TEntity> GetAll()
-        {
-            return dbSet;
-        }
+        protected DbContext DbContext { get; }
+        protected DbSet<TEntity> DbSet { get; }
+
+        ///// <summary>
+        ///// Gets all entities. This method is not recommended
+        ///// </summary>
+        ///// <returns>The <see cref="IQueryable{TEntity}"/>.</returns>
+        //public IQueryable<TEntity> GetAll()
+        //{
+        //    return DbSet;
+        //}
 
         /// <summary>
         /// Gets all entities. This method is not recommended
@@ -58,7 +59,7 @@ namespace SaleIt.Data
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool disableTracking = true)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -100,7 +101,7 @@ namespace SaleIt.Data
                                                 int pageSize = 20,
                                                 bool disableTracking = true)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -147,7 +148,7 @@ namespace SaleIt.Data
                                                            bool disableTracking = true,
                                                            CancellationToken cancellationToken = default(CancellationToken))
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -193,7 +194,7 @@ namespace SaleIt.Data
                                                          bool disableTracking = true)
             where TResult : class
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -243,7 +244,7 @@ namespace SaleIt.Data
                                                                     CancellationToken cancellationToken = default(CancellationToken))
             where TResult : class
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -277,12 +278,12 @@ namespace SaleIt.Data
         /// <param name="disableTracking"><c>True</c> to disable changing tracking; otherwise, <c>false</c>. Default to <c>true</c>.</param>
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        public virtual TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>>? predicate = null,
+        public virtual TEntity? GetFirstOrDefault(Expression<Func<TEntity, bool>>? predicate = null,
                                          Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                          Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                          bool disableTracking = true)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -312,7 +313,7 @@ namespace SaleIt.Data
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
             bool disableTracking = true)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -347,13 +348,14 @@ namespace SaleIt.Data
         /// <param name="disableTracking"><c>True</c> to disable changing tracking; otherwise, <c>false</c>. Default to <c>true</c>.</param>
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
+        [return: MaybeNull]
         public virtual TResult GetFirstOrDefault<TResult>(Expression<Func<TEntity, TResult>> selector,
                                                   Expression<Func<TEntity, bool>>? predicate = null,
                                                   Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                                   Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                   bool disableTracking = true)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -378,14 +380,14 @@ namespace SaleIt.Data
             return query.Select(selector).FirstOrDefault();
         }
 
-        /// <inheritdoc />
+         
         public virtual async Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
                                                   Expression<Func<TEntity, bool>>? predicate = null,
                                                   Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                                   Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                   bool disableTracking = true)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -416,21 +418,21 @@ namespace SaleIt.Data
         /// <param name="sql">The raw SQL.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>An <see cref="IQueryable{TEntity}" /> that contains elements that satisfy the condition specified by raw SQL.</returns>
-        public virtual IQueryable<TEntity> FromSql(string sql, params object[] parameters) => dbSet.FromSqlRaw(sql, parameters);
+        public virtual IQueryable<TEntity> FromSql(string sql, params object[] parameters) => DbSet.FromSqlRaw(sql, parameters);
 
         /// <summary>
         /// Finds an entity with the given primary key values. If found, is attached to the context and returned. If no entity is found, then null is returned.
         /// </summary>
         /// <param name="keyValues">The values of the primary key for the entity to be found.</param>
         /// <returns>The found entity or null.</returns>
-        public virtual TEntity Find(params object[] keyValues) => dbSet.Find(keyValues);
+        public virtual TEntity Find(params object[] keyValues) => DbSet.Find(keyValues);
 
         /// <summary>
         /// Finds an entity with the given primary key values. If found, is attached to the context and returned. If no entity is found, then null is returned.
         /// </summary>
         /// <param name="keyValues">The values of the primary key for the entity to be found.</param>
         /// <returns>A <see cref="Task{TEntity}" /> that represents the asynchronous insert operation.</returns>
-        public virtual ValueTask<TEntity> FindAsync(params object[] keyValues) => dbSet.FindAsync(keyValues);
+        public virtual ValueTask<TEntity> FindAsync(params object[] keyValues) => DbSet.FindAsync(keyValues);
 
         /// <summary>
         /// Finds an entity with the given primary key values. If found, is attached to the context and returned. If no entity is found, then null is returned.
@@ -438,7 +440,7 @@ namespace SaleIt.Data
         /// <param name="keyValues">The values of the primary key for the entity to be found.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>A <see cref="Task{TEntity}"/> that represents the asynchronous find operation. The task result contains the found entity or null.</returns>
-        public virtual ValueTask<TEntity> FindAsync(object[] keyValues, CancellationToken cancellationToken) => dbSet.FindAsync(keyValues, cancellationToken);
+        public virtual ValueTask<TEntity> FindAsync(object[] keyValues, CancellationToken cancellationToken) => DbSet.FindAsync(keyValues, cancellationToken);
 
         /// <summary>
         /// Gets the count based on a predicate.
@@ -449,10 +451,10 @@ namespace SaleIt.Data
         {
             if (predicate == null)
             {
-                return dbSet.Count();
+                return DbSet.Count();
             }
 
-            return dbSet.Count(predicate);
+            return DbSet.Count(predicate);
         }
 
         /// <summary>
@@ -464,10 +466,10 @@ namespace SaleIt.Data
         {
             if (predicate == null)
             {
-                return await dbSet.CountAsync();
+                return await DbSet.CountAsync();
             }
 
-            return await dbSet.CountAsync(predicate);
+            return await DbSet.CountAsync(predicate);
         }
 
         /// <summary>
@@ -479,10 +481,10 @@ namespace SaleIt.Data
         {
             if (predicate == null)
             {
-                return dbSet.LongCount();
+                return DbSet.LongCount();
             }
 
-            return dbSet.LongCount(predicate);
+            return DbSet.LongCount(predicate);
         }
 
         /// <summary>
@@ -494,10 +496,10 @@ namespace SaleIt.Data
         {
             if (predicate == null)
             {
-                return await dbSet.LongCountAsync();
+                return await DbSet.LongCountAsync();
             }
 
-            return await dbSet.LongCountAsync(predicate);
+            return await DbSet.LongCountAsync(predicate);
         }
 
         /// <summary>
@@ -506,14 +508,15 @@ namespace SaleIt.Data
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
+        [return: MaybeNull]
         public virtual T Max<T>(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, T>> selector = null)
         {
             if (predicate == null)
             {
-                return dbSet.Max(selector);
+                return DbSet.Max(selector);
             }
 
-            return dbSet.Where(predicate).Max(selector);
+            return DbSet.Where(predicate).Max(selector);
         }
 
         /// <summary>
@@ -522,110 +525,105 @@ namespace SaleIt.Data
         /// <param name="predicate"></param>
         ///  /// <param name="selector"></param>
         /// <returns>decimal</returns>
-        public virtual async Task<T> MaxAsync<T>(Expression<Func<TEntity, bool>>?  predicate = null, Expression<Func<TEntity, T>>? selector = null)
+        public virtual async Task<T> MaxAsync<T>(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, T>>? selector = null)
         {
             if (predicate == null)
             {
-                return await dbSet.MaxAsync(selector);
+                return await DbSet.MaxAsync(selector);
             }
 
-            return await dbSet.Where(predicate).MaxAsync(selector);
+            return await DbSet.Where(predicate).MaxAsync(selector);
         }
 
         /// <summary>
         /// Gets the min based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
-        ///  /// <param name="selector"></param>
-        /// <returns>decimal</returns>
-        public virtual T Min<T>(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, T>>? selector = null)
+        /// <param name="selector"></param>
+        [return: MaybeNull]
+        public virtual T Min<T>(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, T>> selector = null)
         {
             if (predicate == null)
             {
-                return dbSet.Min(selector);
+                return DbSet.Min(selector);
             }
 
-            return dbSet.Where(predicate).Min(selector);
+            return DbSet.Where(predicate).Min(selector);
         }
 
         /// <summary>
         /// Gets the async min based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
-        ///  /// <param name="selector"></param>
-        /// <returns>decimal</returns>
-        public virtual async Task<T> MinAsync<T>(Expression<Func<TEntity, bool>>?  predicate = null, Expression<Func<TEntity, T>>? selector = null)
+        /// <param name="selector"></param>
+        public virtual async Task<T> MinAsync<T>(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, T>>? selector = null)
         {
             if (predicate == null)
             {
-                return await dbSet.MinAsync(selector);
+                return await DbSet.MinAsync(selector);
             }
 
-            return await dbSet.Where(predicate).MinAsync(selector);
+            return await DbSet.Where(predicate).MinAsync(selector);
         }
 
         /// <summary>
         /// Gets the average based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
-        ///  /// <param name="selector"></param>
-        /// <returns>decimal</returns>
-        public virtual decimal Average(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>>? selector = null)
+        /// <param name="selector"></param>
+        public virtual decimal Average(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>> selector = null)
         {
             if (predicate == null)
             {
-                return dbSet.Average(selector);
+                return DbSet.Average(selector);
             }
 
-            return dbSet.Where(predicate).Average(selector);
+            return DbSet.Where(predicate).Average(selector);
         }
 
         /// <summary>
         /// Gets the async average based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
-        ///  /// <param name="selector"></param>
-        /// <returns>decimal</returns>
+        /// <param name="selector"></param>
         public virtual async Task<decimal> AverageAsync(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>>? selector = null)
         {
             if (predicate == null)
             {
-                return await dbSet.AverageAsync(selector);
+                return await DbSet.AverageAsync(selector);
             }
 
-            return await dbSet.Where(predicate).AverageAsync(selector);
+            return await DbSet.Where(predicate).AverageAsync(selector);
         }
 
         /// <summary>
         /// Gets the sum based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
-        ///  /// <param name="selector"></param>
-        /// <returns>decimal</returns>
+        /// <param name="selector"></param>
         public virtual decimal Sum(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>> selector = null)
         {
             if (predicate == null)
             {
-                return dbSet.Sum(selector);
+                return DbSet.Sum(selector);
             }
 
-            return dbSet.Where(predicate).Sum(selector);
+            return DbSet.Where(predicate).Sum(selector);
         }
 
         /// <summary>
         /// Gets the async sum based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
-        ///  /// <param name="selector"></param>
-        /// <returns>decimal</returns>
+        /// <param name="selector"></param>
         public virtual async Task<decimal> SumAsync(Expression<Func<TEntity, bool>>? predicate = null, Expression<Func<TEntity, decimal>>? selector = null)
         {
             if (predicate == null)
             {
-                return await dbSet.SumAsync(selector);
+                return await DbSet.SumAsync(selector);
             }
 
-            return await dbSet.Where(predicate).SumAsync(selector);
+            return await DbSet.Where(predicate).SumAsync(selector);
         }
 
         /// <summary>
@@ -637,10 +635,10 @@ namespace SaleIt.Data
         {
             if (selector == null)
             {
-                return dbSet.Any();
+                return DbSet.Any();
             }
 
-            return dbSet.Any(selector);
+            return DbSet.Any(selector);
         }
         /// <summary>
         /// Gets the async exists based on a predicate.
@@ -651,10 +649,10 @@ namespace SaleIt.Data
         {
             if (selector == null)
             {
-                return await dbSet.AnyAsync();
+                return await DbSet.AnyAsync();
             }
 
-            return await dbSet.AnyAsync(selector);
+            return await DbSet.AnyAsync(selector);
         }
         /// <summary>
         /// Inserts a new entity synchronously.
@@ -662,20 +660,20 @@ namespace SaleIt.Data
         /// <param name="entity">The entity to insert.</param>
         public virtual TEntity Add(TEntity entity)
         {
-            return dbSet.Add(entity).Entity;
+            return DbSet.Add(entity).Entity;
         }
 
         /// <summary>
         /// Inserts a range of entities synchronously.
         /// </summary>
         /// <param name="entities">The entities to insert.</param>
-        public virtual void Add(params TEntity[] entities) => dbSet.AddRange(entities);
+        public virtual void Add(params TEntity[] entities) => DbSet.AddRange(entities);
 
         /// <summary>
         /// Inserts a range of entities synchronously.
         /// </summary>
         /// <param name="entities">The entities to insert.</param>
-        public virtual void Add(IEnumerable<TEntity> entities) => dbSet.AddRange(entities);
+        public virtual void Add(IEnumerable<TEntity> entities) => DbSet.AddRange(entities);
 
         /// <summary>
         /// Inserts a new entity asynchronously.
@@ -685,7 +683,7 @@ namespace SaleIt.Data
         /// <returns>A <see cref="Task"/> that represents the asynchronous insert operation.</returns>
         public virtual ValueTask<EntityEntry<TEntity>> AddAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return dbSet.AddAsync(entity, cancellationToken);
+            return DbSet.AddAsync(entity, cancellationToken);
 
             // Shadow properties?
             //var property = _dbContext.Entry(entity).Property("Created");
@@ -699,7 +697,7 @@ namespace SaleIt.Data
         /// </summary>
         /// <param name="entities">The entities to insert.</param>
         /// <returns>A <see cref="Task" /> that represents the asynchronous insert operation.</returns>
-        public virtual Task AddAsync(params TEntity[] entities) => dbSet.AddRangeAsync(entities);
+        public virtual Task AddAsync(params TEntity[] entities) => DbSet.AddRangeAsync(entities);
 
         /// <summary>
         /// Inserts a range of entities asynchronously.
@@ -707,7 +705,7 @@ namespace SaleIt.Data
         /// <param name="entities">The entities to insert.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous insert operation.</returns>
-        public virtual Task AddAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken)) => dbSet.AddRangeAsync(entities, cancellationToken);
+        public virtual Task AddAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken)) => DbSet.AddRangeAsync(entities, cancellationToken);
 
         /// <summary>
         /// Updates the specified entity.
@@ -715,7 +713,7 @@ namespace SaleIt.Data
         /// <param name="entity">The entity.</param>
         public virtual void Update(TEntity entity)
         {
-            dbSet.Update(entity);
+            DbSet.Update(entity);
         }
 
         /// <summary>
@@ -724,7 +722,7 @@ namespace SaleIt.Data
         /// <param name="entity">The entity.</param>
         public virtual void UpdateAsync(TEntity entity)
         {
-            dbSet.Update(entity);
+            DbSet.Update(entity);
 
         }
 
@@ -732,19 +730,19 @@ namespace SaleIt.Data
         /// Updates the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void Update(params TEntity[] entities) => dbSet.UpdateRange(entities);
+        public virtual void Update(params TEntity[] entities) => DbSet.UpdateRange(entities);
 
         /// <summary>
         /// Updates the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void Update(IEnumerable<TEntity> entities) => dbSet.UpdateRange(entities);
+        public virtual void Update(IEnumerable<TEntity> entities) => DbSet.UpdateRange(entities);
 
         /// <summary>
         /// Removes the specified entity.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
-        public virtual void Remove(TEntity entity) => dbSet.Remove(entity);
+        public virtual void Remove(TEntity entity) => DbSet.Remove(entity);
 
         /// <summary>
         /// Removes the entity by the specified primary key.
@@ -754,17 +752,22 @@ namespace SaleIt.Data
         {
             // using a stub entity to mark for deletion
             var typeInfo = typeof(TEntity).GetTypeInfo();
-            var key = dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
-            var property = typeInfo.GetProperty(key?.Name);
+            var key = DbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
+            PropertyInfo? property = null;
+            if (key != null)
+            {
+                property = typeInfo.GetProperty(key.Name);
+            }
+
             if (property != null)
             {
                 var entity = Activator.CreateInstance<TEntity>();
                 property.SetValue(entity, id);
-                dbContext.Entry(entity).State = EntityState.Deleted;
+                DbContext.Entry(entity).State = EntityState.Deleted;
             }
             else
             {
-                var entity = dbSet.Find(id);
+                var entity = DbSet.Find(id);
                 if (entity != null)
                 {
                     Remove(entity);
@@ -776,22 +779,22 @@ namespace SaleIt.Data
         /// Removes the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void Remove(params TEntity[] entities) => dbSet.RemoveRange(entities);
+        public virtual void Remove(params TEntity[] entities) => DbSet.RemoveRange(entities);
 
         /// <summary>
         /// Removes the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void Remove(IEnumerable<TEntity> entities) => dbSet.RemoveRange(entities);
+        public virtual void Remove(IEnumerable<TEntity> entities) => DbSet.RemoveRange(entities);
 
-        /// <summary>
-        /// Gets all entities. This method is not recommended
-        /// </summary>
-        /// <returns>The <see cref="IQueryable{TEntity}"/>.</returns>
-        public async Task<IList<TEntity>> GetAllAsync()
-        {
-            return await dbSet.ToListAsync();
-        }
+        ///// <summary>
+        ///// Gets all entities. This method is not recommended
+        ///// </summary>
+        ///// <returns>The <see cref="IQueryable{TEntity}"/>.</returns>
+        //public async Task<IList<TEntity>> GetAllAsync()
+        //{
+        //    return await DbSet.ToListAsync();
+        //}
 
         /// <summary>
         /// Gets all entities. This method is not recommended
@@ -802,12 +805,13 @@ namespace SaleIt.Data
         /// <param name="disableTracking"><c>true</c> to disable changing tracking; otherwise, <c>false</c>. Default to <c>true</c>.</param>
         /// <returns>An <see cref="IPagedList{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>Ex: This method defaults to a read-only, no-tracking query.</remarks>
-        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null,
+        public async Task<IList<TEntity>> GetAllAsync(
+            Expression<Func<TEntity, bool>>? predicate = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
             bool disableTracking = true)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (disableTracking)
             {
@@ -839,7 +843,7 @@ namespace SaleIt.Data
         /// /// <param name="state">The entity state.</param>
         public void ChangeEntityState(TEntity entity, EntityState state)
         {
-            dbContext.Entry(entity).State = state;
+            DbContext.Entry(entity).State = state;
         }
     }
 }
