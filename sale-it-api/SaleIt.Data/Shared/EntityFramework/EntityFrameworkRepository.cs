@@ -84,7 +84,7 @@ namespace SaleIt.Data
             return query;
         }
         /// <summary>
-        /// Gets the <see cref="IPagedList{TEntity}"/> based on a predicate, orderby delegate and page information. This method default no-tracking query.
+        /// Gets the <see cref="IPagedList{TEntity}"/> based on a predicate, order by delegate and page information. This method default no-tracking query.
         /// </summary>
         /// <param name="predicate">A function to test each element for a condition.</param>
         /// <param name="orderBy">A function to order elements.</param>
@@ -127,7 +127,7 @@ namespace SaleIt.Data
         }
 
         /// <summary>
-        /// Gets the <see cref="IPagedList{TEntity}"/> based on a predicate, orderby delegate and page information. This method default no-tracking query.
+        /// Gets the <see cref="IPagedList{TEntity}"/> based on a predicate, order by delegate and page information. This method default no-tracking query.
         /// </summary>
         /// <param name="predicate">A function to test each element for a condition.</param>
         /// <param name="orderBy">A function to order elements.</param>
@@ -174,7 +174,7 @@ namespace SaleIt.Data
         }
 
         /// <summary>
-        /// Gets the <see cref="IPagedList{TResult}"/> based on a predicate, orderby delegate and page information. This method default no-tracking query.
+        /// Gets the <see cref="IPagedList{TResult}"/> based on a predicate,  order by delegate and page information. This method default no-tracking query.
         /// </summary>
         /// <param name="selector">The selector for projection.</param>
         /// <param name="predicate">A function to test each element for a condition.</param>
@@ -220,7 +220,7 @@ namespace SaleIt.Data
         }
 
         /// <summary>
-        /// Gets the <see cref="IPagedList{TEntity}"/> based on a predicate, orderby delegate and page information. This method default no-tracking query.
+        /// Gets the <see cref="IPagedList{TEntity}"/> based on a predicate,  order by delegate and page information. This method default no-tracking query.
         /// </summary>
         /// <param name="selector">The selector for projection.</param>
         /// <param name="predicate">A function to test each element for a condition.</param>
@@ -270,7 +270,7 @@ namespace SaleIt.Data
         }
 
         /// <summary>
-        /// Gets the first or default entity based on a predicate, orderby delegate and include delegate. This method default no-tracking query.
+        /// Gets the first or default entity based on a predicate,  order by delegate and include delegate. This method default no-tracking query.
         /// </summary>
         /// <param name="predicate">A function to test each element for a condition.</param>
         /// <param name="orderBy">A function to order elements.</param>
@@ -339,7 +339,7 @@ namespace SaleIt.Data
         }
 
         /// <summary>
-        /// Gets the first or default entity based on a predicate, orderby delegate and include delegate. This method default no-tracking query.
+        /// Gets the first or default entity based on a predicate,  order by delegate and include delegate. This method default no-tracking query.
         /// </summary>
         /// <param name="selector">The selector for projection.</param>
         /// <param name="predicate">A function to test each element for a condition.</param>
